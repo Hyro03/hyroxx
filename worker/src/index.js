@@ -11,13 +11,12 @@ export default {
     if (url.pathname === "/api/links") {
       if (request.method === "POST") {
         const body = await request.json();
-        if (body.password !== "hyroxx123") {
+        if (body.password !== "12hyro03") {
           return new Response(JSON.stringify({ error: "password salah" }), { status: 401, headers: cors });
         }
         await env.LINKS.put("config", JSON.stringify({
           wa: body.wa,
-          group: body.group,
-          telegram: body.telegram
+          group: body.group
         }));
         return new Response(JSON.stringify({ ok: true }), { headers: cors });
       } else {
@@ -25,14 +24,12 @@ export default {
         if (!data) {
           data = {
             wa: "https://wa.me/6281234567890",
-            group: "https://chat.whatsapp.com/xxxx",
-            telegram: "https://t.me/hyroxx"
+            group: "https://chat.whatsapp.com/xxxx"
           };
         }
         return new Response(JSON.stringify(data), { headers: { ...cors, "Content-Type": "application/json" } });
       }
     }
-
     return env.ASSETS.fetch(request);
   }
 };
